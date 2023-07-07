@@ -4,7 +4,8 @@ const cors = require("cors");
 const app = express();
 const {connectToDB} = require("./src/db/db");
 const errorHandler = require("./src/middlewares/error");
-const main = require("./src/controllers/index");
+const {ignoreFiles} = require("./src/middlewares/common");
+const appRoutes = require("./src/controllers/index");
 
 // configurations
 app.use(cors());
@@ -13,8 +14,11 @@ app.use(express.json());
 // connect to database
 connectToDB();
 
+// ignore automatic file requests from browsers
+app.use(ignoreFiles)
+
 // main app routes
-app.use(main)
+app.use(appRoutes);
 
 // for error handling
 app.use(errorHandler);
