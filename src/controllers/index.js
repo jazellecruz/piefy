@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const {db} = require("../db/db");
+const { db } = require("../db/db");
+const { addNewUrl, fetchUrl } = require("../models/index");
 
 // home page
 router.get("/", async(req, res, next) => {
   try{
-    res.send("Welcome to piefy! A perfect slice for your long URLs 🍰");
+    res.send("Piefy. A perfect slice 🍰 for your long URLs.")
   } catch(err) {
     next(err);
   }
@@ -13,9 +14,9 @@ router.get("/", async(req, res, next) => {
 // for fetching urls
 router.get("/:url_code", async(req, res, next) => {
   try{
-    res.send(req.params.url_code);
-    let result = await db.query("SELECT * FROM urls;");
-    console.log(result.rows);
+    let url = await fetchUrl(req.params.url_code);
+
+    res.redirect(url);
   } catch(err) {
     next(err);
   }
@@ -24,7 +25,10 @@ router.get("/:url_code", async(req, res, next) => {
 // for adding new urls
 router.post("/", async(req, res, next) => {
   try{
-    console.log(req.body.url);
+    let urlCode = await addNewUrl(req.body.url);
+    let newUrl = `http://localhost:8000/${urlCode}`
+
+    res.send(newUrl);
   } catch(err) {
     next(err);
   }
