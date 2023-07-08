@@ -1,4 +1,4 @@
-const {db} = require("../db/db");
+const { db } = require("../db/db");
 const { v4 : uuidv4 } = require("uuid");
 const { nanoid }= require("nanoid")
 const { generateCharLength } = require("../utils/index");
@@ -24,13 +24,15 @@ const addNewUrl = async(url) => {
 
 const fetchUrl = async(urlCode) => {
   try{
+
+    // use parameterized query
     let query = "SELECT url FROM urls WHERE url_code = $1;";
     let values = [urlCode];
 
     let foundUrl = await db.query(query, values);
     let url = foundUrl.rows[0].url
 
-    if (!url.includes("https://") || !url.includes("https://")){
+    if (!url.includes("http://") || !url.includes("https://")){
       url = `https://${url}`;
     }
 
