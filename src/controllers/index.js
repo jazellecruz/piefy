@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { db } = require("../db/db");
 const { addNewUrl, fetchUrl } = require("../models/index");
+const sanitizeUrl = require("@braintree/sanitize-url").sanitizeUrl
 
 // home page
 router.get("/", async(req, res, next) => {
@@ -25,7 +25,17 @@ router.get("/:url_code", async(req, res, next) => {
 // for adding new urls
 router.post("/", async(req, res, next) => {
   try{
-    let urlCode = await addNewUrl(req.body.url);
+    let sanitizedUrl = sanitizeUrl(req.body.url);
+
+    /**
+     * the library returns about:blank as a replacement if url is invalid
+     * so just send a status to let the client know its an invalid url
+     */ 
+    if (sanitizedUrl === "about:blank"){
+      return res.status(400).send("invalid url");
+    }
+
+    let urlCode = await addNewUrl(sanitizedUrl);
     let newUrl = `http://localhost:8000/${urlCode}`
 
     res.send(newUrl);
