@@ -10,13 +10,15 @@ const addNewUrl = async(url) => {
     let ext_id = uuidv4();
     let url_code = nanoid(urlCodeLength);
 
-    // use parameterized query
     let query = "INSERT INTO urls (ext_id, url_code, url, created_at) VALUES ($1, $2, $3, CURRENT_TIMESTAMP) RETURNING url_code;"
     let values = [ext_id, url_code, url]
 
-    let result = await db.query(query, values)
+    let result = await db.query(query, values);
 
-    return result.rows[0].url_code
+    let urlCode = result.rows[0].url_code
+    let newUrl = `http://localhost:8000/${urlCode}`
+
+    return newUrl;
   } catch(err) {
     throw err;
   }
@@ -24,15 +26,24 @@ const addNewUrl = async(url) => {
 
 const fetchUrl = async(urlCode) => {
   try{
+    let protocolRegex = /^https?:\/\//i
+    let url;
 
-    // use parameterized query
     let query = "SELECT url FROM urls WHERE url_code = $1;";
     let values = [urlCode];
 
     let foundUrl = await db.query(query, values);
-    let url = foundUrl.rows[0].url
 
-    if (!url.includes("http://") || !url.includes("https://")){
+    if(!foundUrl.rows[0]) {
+      console.log("No url found")
+      return;
+    }
+
+    url = foundUrl.rows[0].url
+
+    // check if url has protocol
+    if (!protocolRegex.test(url)|| !protocolRegex.test(url)){
+      // add https as default protocol
       url = `https://${url}`;
     }
 
@@ -42,4 +53,22 @@ const fetchUrl = async(urlCode) => {
   }
 }
 
-module.exports = {addNewUrl, fetchUrl}
+const doesUrlExist = async(link) => {
+  try{
+    let query = "SELECT url_code from urls WHERE url = $1;";
+    let values = [link];
+
+    let foundUrl = await db.query(query, values);
+
+    if(!foundUrl.rows[0]) {
+      return false
+    }
+
+    return `http://localhost:8000/${foundUrl.rows[0].url_code}`
+  } catch(err){
+    throw err
+  }
+
+}
+
+module.exports = {addNewUrl, fetchUrl, doesUrlExist}
