@@ -26,7 +26,7 @@ const submitUrl = (e) => {
 }
 
 const copyUrl = () => {
-  let url = resultContainer.innerText
+  let url = resultContainer.value
 }
 
 form.addEventListener("submit", submitUrl);
