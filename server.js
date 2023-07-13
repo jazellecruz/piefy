@@ -5,11 +5,15 @@ const app = express();
 const {connectToDB} = require("./src/db/db");
 const errorHandler = require("./src/middlewares/error");
 const {ignoreFiles} = require("./src/middlewares/common");
-const appRoutes = require("./src/controllers/index");
+const api = require("./src/controllers/api");
+const client = require("./src/controllers/client");
 
 // configurations
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extenderd: true }));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 // connect to database
 connectToDB();
@@ -18,7 +22,8 @@ connectToDB();
 app.use(ignoreFiles)
 
 // main app routes
-app.use(appRoutes);
+app.use(client)
+app.use(api);
 
 // for error handling
 app.use(errorHandler);
