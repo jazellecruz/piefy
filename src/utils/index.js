@@ -1,3 +1,4 @@
+const urlPattern = /^(https?:\/\/)?(www\.)?\w+\.\w+(\.\w+)?$/i;
 
 const generateCharLength = (min = 5, max = 8) => {
 
@@ -16,5 +17,18 @@ const generateCharLength = (min = 5, max = 8) => {
   return randomNum;
 }
 
-module.exports = {generateCharLength}
+// custom validator for validating and accepting http urls only
+const validateUrl = (url) => {
+  const validatedUrl = urlPattern.test(url);
+
+  if(!validatedUrl) {
+    return false;
+  } else {
+    return url;
+  }
+
+}
+
+
+module.exports = {generateCharLength, validateUrl}
 
