@@ -1,15 +1,6 @@
 const router = require("express").Router();
-const { addNewUrl, fetchUrl } = require("../models/index");
-const sanitizeUrl = require("@braintree/sanitize-url").sanitizeUrl
-
-// home page
-router.get("/", async(req, res, next) => {
-  try{
-    res.send("Piefy. A perfect slice 🍰 for your long URLs.")
-  } catch(err) {
-    next(err);
-  }
-});
+const { addNewUrl, fetchUrl, doesUrlExist } = require("../models/index");
+const {validateUrl} = require("../utils/index");
 
 // for fetching urls
 router.get("/:url_code", async(req, res, next) => {
@@ -25,20 +16,24 @@ router.get("/:url_code", async(req, res, next) => {
 // for adding new urls
 router.post("/", async(req, res, next) => {
   try{
-    let sanitizedUrl = sanitizeUrl(req.body.url);
+    // use the custom url validator to accept http urls only
+    let validatedUrl = validateUrl(req.body.url)
 
-    /**
-     * the library returns about:blank as a replacement if url is invalid
-     * so just send a status to let the client know its an invalid url
-     */ 
-    if (sanitizedUrl === "about:blank"){
+    if(!validatedUrl){
       return res.status(400).send("invalid url");
     }
 
-    let urlCode = await addNewUrl(sanitizedUrl);
-    let newUrl = `http://localhost:8000/${urlCode}`
+    /**
+     * Check if url already exists in the database
+     * if so, send the corresponding shortende url
+     */
+    let url = await doesUrlExist(validatedUrl)
 
-    res.send(newUrl);
+    if(!url) {
+      url = await addNewUrl(validatedUrl);
+    }
+  
+    res.send(url);
   } catch(err) {
     next(err);
   }
