@@ -21,7 +21,11 @@ const submitUrl = (e) => {
   .then(res => res.json())
   .then(res => {
     resultContainer.value = res.url;
+    console.log(res)
     submitBtn.innerText = "Slice Away!"
+  })
+  .catch(err => {
+    console.log(err);
   });
 }
 
