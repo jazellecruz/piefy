@@ -21,7 +21,7 @@ router.post("/", async(req, res, next) => {
     let validatedUrl = validateUrl(req.body.url)
 
     if(!validatedUrl){
-      return res.status(400).send("invalid url");
+      return res.status(400).send({msg: "invalid url"});
     }
 
     /**
@@ -33,7 +33,7 @@ router.post("/", async(req, res, next) => {
     if(!url) {
       url = await addNewUrl(validatedUrl);
     }
-  
+
     res.send({url: url});
   } catch(err) {
     next(err);
