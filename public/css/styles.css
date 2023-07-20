@@ -1,0 +1,80 @@
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('../assets/fonts/PPNeueMontreal-Book.otf') format("opentype");
+}
+
+@font-face {
+  font-family: 'Pier Sans Regular';
+  src: url('../assets/fonts/PPPierSans-Regular.otf') format("opentype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-family: 'Pier Sans Regular';
+}
+
+main {
+  text-align: center;
+  padding-top: 180px;
+}
+
+input{
+  font-family: inherit;
+  border: 2px solid rgb(51, 51, 51);
+  width: 400px;
+  padding: 12px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+button{
+  font-family: inherit;
+  background-color: rgb(255, 241, 241);
+  height: 46px;
+  width: 166px;
+  box-shadow: 4px 4px rgb(51, 51, 51);
+  font-size: 18px;
+}
+
+#submit-btn{
+  background-color: rgb(238, 161, 89);
+}
+
+.input-group{
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tagline{
+  font-size: 20px;
+}
+
+.brand-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.title-container{
+  text-align: left;
+}
+
+.title-name{
+  font-size: 46px;
+  font-weight:800;
+}
+
+.period{
+  font-size: 100px;
+  color: rgb(221, 110, 7);
+  margin: 0;
+  padding: 0;
+}
