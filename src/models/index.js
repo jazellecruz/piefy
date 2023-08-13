@@ -2,6 +2,7 @@ const { db } = require("../db/db");
 const { v4 : uuidv4 } = require("uuid");
 const { nanoid }= require("nanoid")
 const { generateCharLength } = require("../utils/index");
+const { ServerError } = require("../classes/index");
 
 const addNewUrl = async(url) => {
   try{
@@ -20,7 +21,7 @@ const addNewUrl = async(url) => {
 
     return newUrl;
   } catch(err) {
-    throw err;
+    throw new ServerError(500, err);
   }
 } 
 
@@ -35,8 +36,7 @@ const fetchUrl = async(urlCode) => {
     let foundUrl = await db.query(query, values);
 
     if(!foundUrl.rows[0]) {
-      console.log("No url found")
-      return;
+      return false;
     }
 
     url = foundUrl.rows[0].url
@@ -49,7 +49,7 @@ const fetchUrl = async(urlCode) => {
 
     return url;
   } catch(err) {
-    throw err;
+    throw new ServerError(500, err);
   }
 }
 
@@ -61,12 +61,12 @@ const doesUrlExist = async(link) => {
     let foundUrl = await db.query(query, values);
 
     if(!foundUrl.rows[0]) {
-      return false
+      return false;
     }
 
     return `http://localhost:8000/${foundUrl.rows[0].url_code}`
   } catch(err){
-    throw err
+    throw new ServerError(500, err);
   }
 
 }

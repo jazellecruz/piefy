@@ -1,12 +1,9 @@
-@font-face {
-  font-family: 'Neue Montreal';
-  src: url('../assets/fonts/PPNeueMontreal-Book.otf') format("opentype");
-}
 
 @font-face {
-  font-family: 'Pier Sans Regular';
-  src: url('../assets/fonts/PPPierSans-Regular.otf') format("opentype");
+  font-family: 'Thicccboi Medium';
+  src: url('../assets/fonts/THICCCBOI-Medium.ttf') format("opentype");
 }
+
 
 * {
   margin: 0;
@@ -14,11 +11,18 @@
 }
 
 body{
-  font-family: 'Pier Sans Regular';
+  background-color: #f5f6f7;
+  font-family: 'Thicccboi Medium';
+  display: flex;
+  justify-content: center;
 }
 
 main {
+  width: fit-content;
   text-align: center;
+}
+
+main.home{
   padding-top: 180px;
 }
 
@@ -40,8 +44,8 @@ button{
   font-size: 18px;
 }
 
-#submit-btn{
-  background-color: rgb(238, 161, 89);
+.primary-btn{
+  background-color: #eea159;
 }
 
 .input-group{
@@ -69,12 +73,56 @@ button{
 
 .title-name{
   font-size: 46px;
-  font-weight:800;
+  font-weight: bolder;
 }
 
 .period{
   font-size: 100px;
-  color: rgb(221, 110, 7);
+  color: #dd6e07;
   margin: 0;
   padding: 0;
 }
+
+/* .gh-logo{
+  transition: transform 0.25s ease-in-out;
+  margin-right: 14.5px;
+}
+
+.gh-logo:hover {
+  transform: scale(1.2);
+} */
+
+.gh-container p{
+  font-weight: bolder;
+}
+
+.gh-container p a {
+  text-decoration: none;
+  color: rgb(196, 104, 19);
+}
+
+object{
+  width: 250px;
+  height: 250px;
+}
+
+.error-title{
+  font-size: 36px;
+}
+
+.error-msg{
+  font-size: 20px;
+}
+
+.err-desc-box p{
+  margin-bottom: 20px;
+}
+
+.redirect-btn{
+  margin-top: 24px;
+}
+
+.err-svg {
+  padding-top: 120px;
+}
+

@@ -7,6 +7,7 @@ const errorHandler = require("./src/middlewares/error");
 const {ignoreFiles} = require("./src/middlewares/common");
 const api = require("./src/controllers/api");
 const client = require("./src/controllers/client");
+const error = require("./src/controllers/error.js")
 
 // configurations
 app.use(cors());
@@ -22,12 +23,14 @@ connectToDB();
 app.use(ignoreFiles)
 
 // main app routes
-app.use(client)
+app.use(client);
 app.use(api);
 
 // for error handling
 app.use(errorHandler);
 
+// route for err
+app.use("/error", error);
 app.listen(8000, (req, res) => {
   console.log("Huzzah! Successfully running on port 8000!");
 });

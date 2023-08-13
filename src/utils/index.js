@@ -1,8 +1,8 @@
-const urlPattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/igm
-// /^(https?:\/\/)?(www\.)?\w+\.\w+(\.\w+)?$/i;
+const { ServerError } = require("../classes/index");
+const urlPattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
 
 const generateCharLength = (min = 5, max = 8) => {
-
+  
   // get the diference of the max and min num of chars required
   let diff = max - min
 

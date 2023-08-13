@@ -7,7 +7,7 @@
   <title>Piefy - URL Shortener</title>
 </head>
 <body>
-  <main>
+  <main class="home">
     <div class="brand-container">
       <div class="logo-container">
         <svg width="160px" height="160px" viewBox="0 0 512.00 512.00" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.00512">
@@ -24,11 +24,10 @@
       </div>
     </div>
 
-
     <form method="post" name="url-form">
       <div class="input-group">
-        <input type="text" placeholder="URL goes here" name="url" autocomplete="off">
-        <button type="submit" id="submit-btn">Slice Away!</button>
+        <input id="url-input" type="text" placeholder="URL goes here" name="url" autocomplete="off">
+        <button type="submit" class="primary-btn" id="submit-btn">Slice Away!</button>
       </div>
     </form>
     <div class="input-group">
@@ -36,9 +35,9 @@
       <button class="copy-btn" id="copy-btn">Copy</button>
     </div>
     <div class="gh-container">
-      <p>⭐ me on <a href="google.com" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+      <p>Check out the repository on <a href="google.com" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
     </div>
   </main>
-  <script src="/js/index.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>
