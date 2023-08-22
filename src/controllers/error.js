@@ -3,7 +3,7 @@ const BaseError = require("../classes/index");
 
 router.get("/not-found", (req, res, next) => {
   try{
-    res.render("notFound");
+    res.render("not-found");
   } catch(err) {
     next(new BaseError(500, err));
   }
@@ -11,7 +11,7 @@ router.get("/not-found", (req, res, next) => {
 
 router.get("/internal-error", (req, res, next) => {
   try{
-    res.render("internalError");
+    res.render("internal-error");
   } catch(err) {
     next(new BaseError(500, err));
   }
