@@ -58,7 +58,7 @@ const copyUrl = () => {
   copyBtn.innerText = "Copying...";
   setTimeout(() => {
     navigator.clipboard.writeText(url);
-    copyBtn.innerText = "Copied";
+    copyBtn.innerText = "Copy";
   }, 1000)
 }
 
