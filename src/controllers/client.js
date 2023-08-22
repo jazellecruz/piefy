@@ -5,7 +5,7 @@ router.get("/", async(req, res, next) => {
   try{
     res.render("index");
   } catch(err) {
-    next(new BaseError(500, "", err));
+    next(new BaseError(500, err));
   }
 });
 
