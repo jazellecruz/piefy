@@ -17,7 +17,7 @@ const addNewUrl = async(url) => {
     let result = await db.query(query, values);
 
     let urlCode = result.rows[0].url_code
-    let newUrl = `http://localhost:8000/${urlCode}`
+    let newUrl = `https://piefy.vercel.app/${urlCode}`
 
     return newUrl;
   } catch(err) {
@@ -64,7 +64,7 @@ const doesUrlExist = async(link) => {
       return false;
     }
 
-    return `http://localhost:8000/${foundUrl.rows[0].url_code}`
+    return `https://piefy.vercel.app/${foundUrl.rows[0].url_code}`
   } catch(err){
     throw new ServerError(500, err);
   }
